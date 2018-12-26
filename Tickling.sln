@@ -3,7 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "CryptoApp", "CryptoApp\CryptoApp.njsproj", "{629C5FCE-A7AA-4E40-843B-7B55C8013075}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "CryptoApp", "Node\CryptoApp\CryptoApp.njsproj", "{629C5FCE-A7AA-4E40-843B-7B55C8013075}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Node", "Node", "{3AEC5C92-3EAA-4932-949D-EF4CBFCE9CDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A136F9D1-EA3E-4F16-B930-5FE2E2AB6233}"
+	ProjectSection(SolutionItems) = preProject
+		Core\global.json = Core\global.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWeb", "Core\CryptoWeb\CryptoWeb.csproj", "{5DD59969-5E38-4B7F-9F58-A20928B57A75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +24,17 @@ Global
 		{629C5FCE-A7AA-4E40-843B-7B55C8013075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{629C5FCE-A7AA-4E40-843B-7B55C8013075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{629C5FCE-A7AA-4E40-843B-7B55C8013075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DD59969-5E38-4B7F-9F58-A20928B57A75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD59969-5E38-4B7F-9F58-A20928B57A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD59969-5E38-4B7F-9F58-A20928B57A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD59969-5E38-4B7F-9F58-A20928B57A75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{629C5FCE-A7AA-4E40-843B-7B55C8013075} = {3AEC5C92-3EAA-4932-949D-EF4CBFCE9CDD}
+		{5DD59969-5E38-4B7F-9F58-A20928B57A75} = {A136F9D1-EA3E-4F16-B930-5FE2E2AB6233}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CAF83488-6915-427F-9849-60F6B3DB9230}
