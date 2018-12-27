@@ -13,13 +13,25 @@ namespace NetCryptoApp
             const int numberOfRequests = 10;
             var baseTime = DateTime.Now;
 
+            if (args != null && args[0] == "async")
+            {
+                await TestAsync(salt, numberOfRequests, baseTime);
+            }
+            else
+            {
+                Test(salt, numberOfRequests, baseTime);
+            }
+
+
+
+        }
+
+        private static async Task TestAsync(byte[] salt, int numberOfRequests, DateTime baseTime)
+        {
             for (int i = 1; i < numberOfRequests + 1; i++)
             {
                 var start = DateTime.Now;
-                var caller = new Pbkdf2Async(CryptoPbkdf2);
-
-                IAsyncResult task = caller.BeginInvoke(salt, null, null);
-                var result = caller.EndInvoke(task);
+                await Task.Run(() => CryptoPbkdf2(salt));
 
                 var duration = (DateTime.Now - start);
                 Console.WriteLine($"{i} => {Math.Ceiling((start - baseTime).TotalMilliseconds)} - {Math.Ceiling(duration.TotalMilliseconds)}");
@@ -27,12 +39,26 @@ namespace NetCryptoApp
             }
         }
 
-        public delegate string Pbkdf2Async(byte[] salt);
+        private static void Test(byte[] salt, int numberOfRequests, DateTime baseTime)
+        {
+            for (int i = 1; i < numberOfRequests + 1; i++)
+            {
+                var start = DateTime.Now;
+                KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512);
+                var duration = (DateTime.Now - start);
+
+                Console.WriteLine($"{i} => {Math.Ceiling((start - baseTime).TotalMilliseconds)} - {Math.Ceiling(duration.TotalMilliseconds)}");
+            }
+        }
+
+
 
         public static string CryptoPbkdf2(byte[] salt)
         {
+
             return KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512).ToString();
-      
+
+
         }
     }
 }
