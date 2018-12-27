@@ -16,10 +16,10 @@ namespace NetCryptoApp
             for (int i = 1; i < numberOfRequests + 1; i++)
             {
                 var start = DateTime.Now;
+                var caller = new Pbkdf2Async(CryptoPbkdf2);
 
-                var task = Task.Run(() => KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512));
-
-                await task;
+                IAsyncResult task = caller.BeginInvoke(salt, null, null);
+                var result = caller.EndInvoke(task);
 
                 var duration = (DateTime.Now - start);
                 Console.WriteLine($"{i} => {Math.Ceiling((start - baseTime).TotalMilliseconds)} - {Math.Ceiling(duration.TotalMilliseconds)}");
@@ -27,10 +27,12 @@ namespace NetCryptoApp
             }
         }
 
-        private Task Pbkdf2Async(byte[] salt)
+        public delegate string Pbkdf2Async(byte[] salt);
+
+        public static string CryptoPbkdf2(byte[] salt)
         {
-            KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512);
-            return Task.CompletedTask;
+            return KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512).ToString();
+      
         }
     }
 }
