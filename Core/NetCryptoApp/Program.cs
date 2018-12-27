@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 namespace NetCryptoApp
 {
@@ -31,10 +32,16 @@ namespace NetCryptoApp
             for (int i = 1; i < numberOfRequests + 1; i++)
             {
                 var start = DateTime.Now;
-                await Task.Run(() => CryptoPbkdf2(salt));
+                int threadId = 0;
+                await Task.Run(() =>
+                {
+                    CryptoPbkdf2(salt, out int cthreadId);
+                    threadId = cthreadId;
+
+                });
 
                 var duration = (DateTime.Now - start);
-                Console.WriteLine($"{i} => {Math.Ceiling((start - baseTime).TotalMilliseconds)} - {Math.Ceiling(duration.TotalMilliseconds)}");
+                Console.WriteLine($"{i} => [{threadId.ToString()}] == {Math.Ceiling((start - baseTime).TotalMilliseconds)} - {Math.Ceiling(duration.TotalMilliseconds)}");
 
             }
         }
@@ -47,15 +54,15 @@ namespace NetCryptoApp
                 KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512);
                 var duration = (DateTime.Now - start);
 
-                Console.WriteLine($"{i} => {Math.Ceiling((start - baseTime).TotalMilliseconds)} - {Math.Ceiling(duration.TotalMilliseconds)}");
+                Console.WriteLine($"{i} => [{Thread.CurrentThread.ManagedThreadId}] == {Math.Ceiling((start - baseTime).TotalMilliseconds)} - {Math.Ceiling(duration.TotalMilliseconds)}");
             }
         }
 
 
 
-        public static string CryptoPbkdf2(byte[] salt)
+        public static string CryptoPbkdf2(byte[] salt, out int threadId)
         {
-
+            threadId = Thread.CurrentThread.ManagedThreadId;
             return KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512).ToString();
 
 
