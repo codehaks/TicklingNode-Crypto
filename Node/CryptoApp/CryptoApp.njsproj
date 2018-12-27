@@ -30,6 +30,8 @@
   <ItemGroup>
     <Compile Include="Crypto.js" />
     <Compile Include="CryptoSync.js" />
+    <Compile Include="download.js" />
+    <Compile Include="PiCalc.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>

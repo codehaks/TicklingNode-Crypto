@@ -2,13 +2,14 @@ const crypto = require("crypto");
 
 const numOfRequests = 10;
 
-var base = date.now();
+var base = Date.now();
+
 for (let i = 1; i < numOfRequests + 1; i++) {
-    var start = date.now();
+    var start = Date.now();
 
-    crypto.pbkdf2sync("password", "salt", 10000, 512, "sha512");
+    crypto.pbkdf2Sync("password", "salt", 10000, 512, "sha512");
 
-    var duration = date.now() - start;
+    var duration = Date.now() - start;
     console.log(i, " => ", start - base, " | ", duration);
 
 }

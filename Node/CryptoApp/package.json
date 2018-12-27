@@ -8,5 +8,9 @@
   },
   "author": {
     "name": "Hakim Ghods"
+  },
+  "dependencies": {
+    "mathjs": "^4.0.0",
+    "moment": "^2.21.0"
   }
 }
