@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A136F9D1-E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWeb", "Core\CryptoWeb\CryptoWeb.csproj", "{5DD59969-5E38-4B7F-9F58-A20928B57A75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCryptoApp", "Core\NetCryptoApp\NetCryptoApp.csproj", "{831210D2-728F-4321-AA14-0CB874F4B1B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{5DD59969-5E38-4B7F-9F58-A20928B57A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DD59969-5E38-4B7F-9F58-A20928B57A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DD59969-5E38-4B7F-9F58-A20928B57A75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{831210D2-728F-4321-AA14-0CB874F4B1B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831210D2-728F-4321-AA14-0CB874F4B1B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831210D2-728F-4321-AA14-0CB874F4B1B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831210D2-728F-4321-AA14-0CB874F4B1B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -35,6 +41,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{629C5FCE-A7AA-4E40-843B-7B55C8013075} = {3AEC5C92-3EAA-4932-949D-EF4CBFCE9CDD}
 		{5DD59969-5E38-4B7F-9F58-A20928B57A75} = {A136F9D1-EA3E-4F16-B930-5FE2E2AB6233}
+		{831210D2-728F-4321-AA14-0CB874F4B1B0} = {A136F9D1-EA3E-4F16-B930-5FE2E2AB6233}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CAF83488-6915-427F-9849-60F6B3DB9230}
