@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A136F9D1-E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWeb", "Core\CryptoWeb\CryptoWeb.csproj", "{5DD59969-5E38-4B7F-9F58-A20928B57A75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCryptoApp", "Core\NetCryptoApp\NetCryptoApp.csproj", "{831210D2-728F-4321-AA14-0CB874F4B1B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCryptoApp", "Core\NetCryptoApp\NetCryptoApp.csproj", "{831210D2-728F-4321-AA14-0CB874F4B1B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
