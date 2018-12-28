@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -80,6 +82,9 @@ namespace NetCryptoApp
             Console.WriteLine($" Total : {s1.ElapsedMilliseconds,3:N0}");
         }
 
+        [DllImport("Kernel32.dll"), SuppressUnmanagedCodeSecurity]
+        public static extern int GetCurrentProcessorNumber();
+
         private static void TestParallel(byte[] salt, int numberOfRequests, DateTime baseTime)
         {
             ThreadPool.GetAvailableThreads(out int workerThreads, out int completionPortThreads);
@@ -92,7 +97,8 @@ namespace NetCryptoApp
                 var start = DateTime.Now;
                 KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, iterationCount, 512);
                 var duration = (DateTime.Now - start);
-                Console.WriteLine($" {index,3:N0} => [  {Thread.CurrentThread.ManagedThreadId,-3:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-6:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
+
+                Console.WriteLine($" {index,3:N0} => [ {Thread.CurrentThread.ManagedThreadId,-3:N0}],[ {GetCurrentProcessorNumber(),-2:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-6:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
             });
 
             s1.Stop();
