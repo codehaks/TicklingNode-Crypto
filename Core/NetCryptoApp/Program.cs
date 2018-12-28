@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ namespace NetCryptoApp
 {
     class Program
     {
-        const int numberOfRequests = 100;
+        const int numberOfRequests = 10;
         const int iterationCount = 10000;
 
         static async Task Main(string[] args)
@@ -68,13 +69,19 @@ namespace NetCryptoApp
             ThreadPool.GetAvailableThreads(out int workerThreads, out int completionPortThreads);
             Console.WriteLine($" Worker threads : {workerThreads}");
 
+            var s1 = Stopwatch.StartNew();
+
             Parallel.For(0, numberOfRequests, index =>
             {
                 var start = DateTime.Now;
                 KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, iterationCount, 512);
                 var duration = (DateTime.Now - start);
-                Console.WriteLine($"{index} => [{Thread.CurrentThread.ManagedThreadId}] == {Math.Ceiling((start - baseTime).TotalMilliseconds)} - {Math.Ceiling(duration.TotalMilliseconds)}");
+                Console.WriteLine($" {index,3:N0} => [  {Thread.CurrentThread.ManagedThreadId,-3:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-3:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
             });
+
+            s1.Stop();
+            Console.WriteLine($" Total : {s1.ElapsedMilliseconds,3:N0}");
+            
         }
 
         public static void CryptoPbkdf2(byte[] salt, out int threadId)
