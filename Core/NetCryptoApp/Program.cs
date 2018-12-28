@@ -11,16 +11,20 @@ namespace NetCryptoApp
         {
             byte[] salt = Encoding.ASCII.GetBytes("salt");
 
-            const int numberOfRequests = 100;
+            const int numberOfRequests = 10;
             var baseTime = DateTime.Now;
 
             if (args != null && args[0] == "async")
             {
                 await TestAsync(salt, numberOfRequests, baseTime);
             }
+            else if(args[0] == "sync")
+            {
+                TestSync(salt, numberOfRequests, baseTime);
+            }
             else
             {
-                Test(salt, numberOfRequests, baseTime);
+                TestParallel(salt, numberOfRequests, baseTime);
             }
         }
 
@@ -49,7 +53,7 @@ namespace NetCryptoApp
             }
         }
 
-        private static void Test(byte[] salt, int numberOfRequests, DateTime baseTime)
+        private static void TestSync(byte[] salt, int numberOfRequests, DateTime baseTime)
         {
             ThreadPool.GetAvailableThreads(out int workerThreads, out int completionPortThreads);
             Console.WriteLine($" Worker threads : {workerThreads}");
@@ -57,19 +61,31 @@ namespace NetCryptoApp
             for (int i = 1; i < numberOfRequests + 1; i++)
             {
                 var start = DateTime.Now;
-                KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 100000, 512);
+                KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512);
                 var duration = (DateTime.Now - start);
 
                 Console.WriteLine($"{i} => [{Thread.CurrentThread.ManagedThreadId}] == {Math.Ceiling((start - baseTime).TotalMilliseconds)} - {Math.Ceiling(duration.TotalMilliseconds)}");
             }
         }
 
+        private static void TestParallel(byte[] salt, int numberOfRequests, DateTime baseTime)
+        {
+            ThreadPool.GetAvailableThreads(out int workerThreads, out int completionPortThreads);
+            Console.WriteLine($" Worker threads : {workerThreads}");
 
+            Parallel.For(0, numberOfRequests, index => {
+                var start = DateTime.Now;
+                KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512);
+                var duration = (DateTime.Now - start);
 
-        public static string CryptoPbkdf2(byte[] salt, out int threadId)
+                Console.WriteLine($"{index} => [{Thread.CurrentThread.ManagedThreadId}] == {Math.Ceiling((start - baseTime).TotalMilliseconds)} - {Math.Ceiling(duration.TotalMilliseconds)}");
+            });
+        }
+
+        public static void CryptoPbkdf2(byte[] salt, out int threadId)
         {
             threadId = Thread.CurrentThread.ManagedThreadId;
-            return KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512).ToString();
+            KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, 10000, 512).ToString();
 
 
         }
