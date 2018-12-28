@@ -13,6 +13,9 @@ namespace NetCryptoApp
         static int numberOfRequests = 10;
         static int iterationCount = 10000;
 
+        [DllImport("Kernel32.dll"), SuppressUnmanagedCodeSecurity]
+        public static extern int GetCurrentProcessorNumber();
+
         static async Task Main(string[] args)
         {
             byte[] salt = Encoding.ASCII.GetBytes("salt");
@@ -81,9 +84,6 @@ namespace NetCryptoApp
             s1.Stop();
             Console.WriteLine($" Total : {s1.ElapsedMilliseconds,3:N0}");
         }
-
-        [DllImport("Kernel32.dll"), SuppressUnmanagedCodeSecurity]
-        public static extern int GetCurrentProcessorNumber();
 
         private static void TestParallel(byte[] salt, int numberOfRequests, DateTime baseTime)
         {

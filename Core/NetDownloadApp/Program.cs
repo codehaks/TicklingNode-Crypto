@@ -10,7 +10,7 @@ namespace NetDownloadApp
 {
     class Program
     {
-        static int numberOfRequests = 10;
+        static int numberOfRequests = 5;
 
         [DllImport("Kernel32.dll"), SuppressUnmanagedCodeSecurity]
         public static extern int GetCurrentProcessorNumber();
@@ -19,7 +19,10 @@ namespace NetDownloadApp
         {
             var baseTime = DateTime.Now;
 
-
+            if (args != null && args.Length > 1)
+            {
+                numberOfRequests = int.Parse(args[1]);
+            }
 
             if (args != null && args[0] == "async")
             {
@@ -38,14 +41,15 @@ namespace NetDownloadApp
 
         static void TestParallel(int numberOfRequests, DateTime baseTime)
         {
-            var wc = new WebClient();
+            var wc = HttpWebRequest.Create("https://codehaks.com/images/me.jpg");
+            wc.Method = "GET";
 
             var s1 = Stopwatch.StartNew();
 
             Parallel.For(0, numberOfRequests, index =>
             {
                 var start = DateTime.Now;
-                wc.DownloadFile("https://codehaks.com/images/me.jpg", "download.png");
+                wc.GetResponse();
                 var duration = (DateTime.Now - start);
 
                 Console.WriteLine($" {index,3:N0} => [ {Thread.CurrentThread.ManagedThreadId,-3:N0}],[ {GetCurrentProcessorNumber(),-2:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-6:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
