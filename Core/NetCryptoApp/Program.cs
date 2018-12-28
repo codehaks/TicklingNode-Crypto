@@ -58,7 +58,7 @@ namespace NetCryptoApp
                     threadId = cthreadId;
                 });
                 var duration = (DateTime.Now - start);
-                Console.WriteLine($" {i,3:N0} => [  {Thread.CurrentThread.ManagedThreadId,-3:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-6:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
+                Console.WriteLine($" {i,3:N0} => [ {Thread.CurrentThread.ManagedThreadId,-3:N0}],[ {GetCurrentProcessorNumber(),-2:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-6:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
             }
             s1.Stop();
             Console.WriteLine($" Total : {s1.ElapsedMilliseconds,3:N0}");
@@ -76,7 +76,7 @@ namespace NetCryptoApp
                 KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, iterationCount, 512);
                 var duration = (DateTime.Now - start);
 
-                Console.WriteLine($" {i,3:N0} => [  {Thread.CurrentThread.ManagedThreadId,-3:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-6:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
+                Console.WriteLine($" {i,3:N0} => [ {Thread.CurrentThread.ManagedThreadId,-3:N0}],[ {GetCurrentProcessorNumber(),-2:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-6:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
             }
             s1.Stop();
             Console.WriteLine($" Total : {s1.ElapsedMilliseconds,3:N0}");
