@@ -70,7 +70,7 @@ namespace NetDownloadApp
             Parallel.For(0, numberOfRequests, async (index) =>
             {
                 var start = DateTime.Now;
-                await wc.DownloadFileTaskAsync("https://codehaks.com/images/me.jpg", "download.png");
+                await wc.DownloadFileTaskAsync("https://codehaks.com/images/me.jpg", $"download{index}.png");
                 var duration = (DateTime.Now - start);
 
                 Console.WriteLine($" {index,3:N0} => [ {Thread.CurrentThread.ManagedThreadId,-3:N0}],[ {GetCurrentProcessorNumber(),-2:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-6:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
@@ -89,7 +89,7 @@ namespace NetDownloadApp
             for (int i = 0; i < numberOfRequests; i++)
             {
                 var start = DateTime.Now;
-                await wc.DownloadFileTaskAsync("https://codehaks.com/images/me.jpg", "download.png");
+                await wc.DownloadFileTaskAsync("https://codehaks.com/images/me.jpg", $"download{i}.png");
                 var duration = (DateTime.Now - start);
 
                 Console.WriteLine($" {i,3:N0} => [ {Thread.CurrentThread.ManagedThreadId,-3:N0}],[ {GetCurrentProcessorNumber(),-2:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-6:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
@@ -108,7 +108,7 @@ namespace NetDownloadApp
             for (int i = 0; i < numberOfRequests; i++)
             {
                 var start = DateTime.Now;
-                wc.DownloadFile("https://codehaks.com/images/me.jpg", "download.png");
+                wc.DownloadFile("https://codehaks.com/images/me.jpg", $"download{i}.png");
                 var duration = (DateTime.Now - start);
 
                 Console.WriteLine($" {i,3:N0} => [ {Thread.CurrentThread.ManagedThreadId,-3:N0}],[ {GetCurrentProcessorNumber(),-2:N0}] == {Math.Ceiling((start - baseTime).TotalMilliseconds),-6:N0} - {Math.Ceiling(duration.TotalMilliseconds),-3:N0}");
