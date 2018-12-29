@@ -10,7 +10,7 @@ namespace NetDownloadApp
 {
     class Program
     {
-        static int numberOfRequests = 5;
+        static int numberOfRequests = 10;
 
         [DllImport("Kernel32.dll"), SuppressUnmanagedCodeSecurity]
         public static extern int GetCurrentProcessorNumber();
