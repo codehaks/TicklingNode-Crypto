@@ -4,7 +4,7 @@
   "description": "CryptoApp",
   "main": "crypto.js",
   "scripts": {
-    "start": "set UV_THREADPOOL_SIZE=4 & node crypto.js"
+    "start": "set UV_THREADPOOL_SIZE=20 & node crypto.js"
   },
   "author": {
     "name": "Hakim Ghods"

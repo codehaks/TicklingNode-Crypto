@@ -92,9 +92,12 @@ namespace NetCryptoApp
 
             var s1 = Stopwatch.StartNew();
 
+           
+
             Parallel.For(0, numberOfRequests, index =>
             {
                 var start = DateTime.Now;
+                //Process.GetCurrentProcess().ProcessorAffinity = new IntPtr(index+1);
                 KeyDerivation.Pbkdf2("password", salt, KeyDerivationPrf.HMACSHA512, iterationCount, 512);
                 var duration = (DateTime.Now - start);
 
