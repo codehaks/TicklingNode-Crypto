@@ -26,7 +26,7 @@ namespace NetDownloadApp
 
             if (args != null && args[0] == "async")
             {
-                await TestAsync(numberOfRequests, baseTime);
+                await TestAsync();
             }
             else if (args[0] == "sync")
             {
@@ -81,7 +81,16 @@ namespace NetDownloadApp
 
         }
 
-        static async Task TestAsync(int numberOfRequests, DateTime baseTime)
+        static async Task TestAsync()
+        {
+            var wc = new WebClient();
+
+                await wc.DownloadFileTaskAsync("https://codehaks.com", $"download.html");
+
+
+        }
+
+        static async Task TestDownload(int numberOfRequests, DateTime baseTime)
         {
             var wc = new WebClient();
 
